@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/mexxo-dvp/AsciiArtify
+    repoURL: https://github.com/mexxo-dvp/AsciiArtify.git
     targetRevision: main
     path: k8s/app
   destination:

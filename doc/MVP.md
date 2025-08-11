@@ -11,7 +11,7 @@
 ### 1) Додати/оновити маніфести застосунку
 - `k8s/app/configmap.yaml` (index.html з текстом “MVP v1”)
 - `k8s/app/deployment.yaml`
-- `k8s/app/service.yaml` (NodePort 30090 для локальних перевірок)
+- `k8s/app/service.yaml` (NodePort 30954 для локальних перевірок)
 
 ### 2) Створити ArgoCD Application
 ```bash
