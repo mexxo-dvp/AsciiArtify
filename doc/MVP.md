@@ -93,4 +93,4 @@ make app-open
 Демо (відео)
 
     Демо роботи застосунку: посилання та Демо авто-синхронізації: 
-[![Дивитися відео](https://img.youtube.com/vi/your-video-id/0.jpg)](https://www.loom.com/share/132557c2cf514125bb49bf28fb69c1b9)
+[![Дивитися відео](https://www.loom.com/share/43be298dfeb14d99863110969feb8aa2/0.jpg)](https://www.loom.com/share/43be298dfeb14d99863110969feb8aa2)
