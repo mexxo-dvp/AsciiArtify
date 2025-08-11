@@ -8,7 +8,7 @@ data:
     <html>
       <head><meta charset="utf-8"><title>AsciiArtify — MVP v1</title></head>
       <body style="font-family: system-ui; padding:20px;">
-        <h1>AsciiArtify — MVP v1</h1>
+        <h1>AsciiArtify — MVP v2</h1>
         <p>Демо сторінка. Авто-синхронізація ArgoCD працює ✅</p>
       </body>
     </html>
