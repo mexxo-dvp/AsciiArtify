@@ -91,18 +91,18 @@ Makefile — зручні цілі для запуску/зупинки клас
 # Docker
 sudo apt install -y docker.io
 ```
-# kubectl
+### kubectl
 ```bash
 sudo apt update && sudo apt install -y kubectl
 ```
-# kind
+### kind
 ```bash
 mkdir -p ~/.local/bin
 curl -Lo ~/.local/bin/kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
 chmod +x ~/.local/bin/kind
 kind version
 ```
-# make
+### make
 ```bash
 sudo apt install -y make
 ```

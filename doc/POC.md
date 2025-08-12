@@ -85,20 +85,20 @@ kubectl -n argocd patch configmap argocd-cmd-params-cm -p \
 kubectl -n argocd rollout restart deploy/argocd-server
 kubectl -n argocd rollout status deploy/argocd-server
 ```
-    Зробити port-forward на 80 і слухати на всіх інтерфейсах:
+Зробити port-forward на 80 і слухати на всіх інтерфейсах:
 ```bash
 kubectl -n argocd port-forward --address 0.0.0.0 svc/argocd-server 8080:80
 ```
-    У вкладці Ports (у Codespaces) знайти порт 8080 → змінити Visibility → Public → відкрити посилання виду:
+У вкладці Ports (у Codespaces) знайти порт 8080 → змінити Visibility → Public → відкрити посилання виду:
 ```bash
 https://<your-codespace>-8080.app.github.dev
 ```
-    Логін у UI:
+### Логін у UI:
 
-# Початковий пароль admin
-kubectl -n argocd get secret argocd-initial-admin-secret \
-  -o jsonpath="{.data.password}" | base64 -d; echo
-
+ Початковий пароль admin
+ ```bash
+kubectl -n argocd get secret argocd-initial-admin-secret \ -o jsonpath="{.data.password}" | base64 -d; echo
+```
 User: admin
 Pass: (значення з команди вище)
 
