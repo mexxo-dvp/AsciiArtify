@@ -1,8 +1,9 @@
 # MVP — ArgoCD автосинхронізація (AsciiArtify)
 
-Мета: розгорнути наш застосунок через ArgoCD з **Auto-Sync** і продемонструвати автоматичну синхронізацію змін з Git.
+### Мета: 
+розгорнути наш застосунок через ArgoCD з **Auto-Sync** і продемонструвати автоматичну синхронізацію змін з Git.
 
-## Передумови
+### Передумови
 - Кластер kind запущений (`make cluster-up`)
 - ArgoCD встановлено і доступне в Codespaces (див. `doc/POC.md`, розділ про Ports → Public, порт 8080)
 
@@ -17,80 +18,122 @@
 ```bash
 make demo
 ```
-### 3) Makefile — автоматизація сценарію розгортання MVP
+## Makefile — автоматизація сценарію розгортання MVP
 
 Цей Makefile автоматизує створення локального Kubernetes-кластеру в Kind, розгортання додатків, налаштування ArgoCD та відкриття доступу до MVP-додатку.
-Основні цілі
-Ціль	Призначення
-kind-install	Встановлює Kind (Kubernetes in Docker), якщо він ще не встановлений.
-cluster-up	Створює кластер Kind з іменем asciiartify за конфігом cluster/cluster.yaml.
-cluster-down	Видаляє кластер asciiartify.
-deploy	Розгортає тестовий додаток hello та очікує його готовності.
-ns-demo	Створює Kubernetes namespace demo (якщо ще не існує).
-demo	Повний сценарій для швидкого старту: встановлює Kind, створює кластер, деплоїть тестовий додаток, верифікує роботу, застосовує ArgoCD-додаток, відкриває UI ArgoCD і MVP-додаток.
-verify	Перевіряє наявність сервісу hello і доступність NodePort 30090.
-argocd-install	Встановлює ArgoCD (разом із CRD) у namespace argocd та чекає на готовність.
-app-apply	Створює або оновлює ArgoCD Application asciiartify та готує середовище (ns-demo + argocd-install).
-app-delete	Видаляє Application asciiartify і namespace demo.
-argocd-open	Відкриває UI ArgoCD у режимі --insecure на порту 8080 (через port-forward).
-app-open	Очікує готовності Deployment asciiartify-web та відкриває доступ до нього на порту 8081 (через port-forward).
-clean	Очищає середовище — видаляє кластер Kind.
-Логіка роботи
+Основні цілі:
+## Ціль	                       Призначення
+Встановлює Kind (Kubernetes in Docker), якщо він ще не встановлений.
+```bash
+kind-install
+```
+Створює кластер Kind з іменем asciiartify за конфігом cluster/cluster.yaml.
+```bash
+cluster-up
+```
+Видаляє кластер asciiartify.
+```bash
+cluster-down
+```
+Розгортає тестовий додаток hello та очікує його готовності.
+```bash
+deploy
+```
+Створює Kubernetes namespace demo (якщо ще не існує).
+```bash
+ns-demo
+```
+Повний сценарій для швидкого старту: встановлює Kind, створює кластер, деплоїть тестовий додаток, верифікує роботу, застосовує ArgoCD-додаток, відкриває UI ArgoCD і MVP-додаток.
+```bash
+demo
+```
+Перевіряє наявність сервісу hello і доступність NodePort 30090.
+```bash
+verify
+```
+Встановлює ArgoCD (разом із CRD) у namespace argocd та чекає на готовність.
+```bash
+argocd-install
+```
+Створює або оновлює ArgoCD Application asciiartify та готує середовище (ns-demo + argocd-install).
+```bash
+app-apply
+```
+Видаляє Application asciiartify і namespace demo.
+```bash
+app-delete
+```
+Відкриває UI ArgoCD у режимі --insecure на порту 8080 (через port-forward).
+```bash
+argocd-open
+```
+Очікує готовності Deployment asciiartify-web та відкриває доступ до нього на порту 8081 (через port-forward).
+```bash
+app-open
+```
+Очищає середовище — видаляє кластер Kind.
+```bash
+clean
+```
 
-    Підготовка інструментів
-    Перевірка наявності Kind та встановлення за потреби.
+## Логіка роботи
 
-    Ініціалізація середовища
-    Створення локального Kubernetes-кластеру для тестового розгортання.
+Підготовка інструментів
+Перевірка наявності Kind та встановлення за потреби.
 
-    Базове розгортання
-    Деплой тестового сервісу hello для перевірки мережевої доступності.
+Ініціалізація середовища
+Створення локального Kubernetes-кластеру для тестового розгортання.
 
-    ArgoCD
+Базове розгортання
+Деплой тестового сервісу hello для перевірки мережевої доступності.
 
-        Встановлення ArgoCD в окремий namespace.
+## ArgoCD
 
-        Створення Application для керування нашим додатком через GitOps.
+Встановлення ArgoCD в окремий namespace.
 
-    Доступ до сервісів
+Створення Application для керування нашим додатком через GitOps.
 
-        Port-forward для доступу до UI ArgoCD (порт 8080).
+## Доступ до сервісів
 
-        Port-forward для доступу до MVP-додатку (порт 8081).
+Port-forward для доступу до UI ArgoCD (порт 8080).
 
-    Очищення
-    Можливість повністю знести кластер та середовище для чистого старту.
+Port-forward для доступу до MVP-додатку (порт 8081).
 
-### 4) Відкрити UI ArgoCD (Codespaces)
+## Відкрити UI ArgoCD (Codespaces)
 ```bash
 make argocd-open
 ```
-    У вкладці Ports порту 8080 поставити Public.
+У вкладці Ports порту 8080 поставити Public.
 
-    Відкрити URL виду: https://<codespace>-8080.app.github.dev.
+Відкрити URL виду: https://<codespace>-8080.app.github.dev.
 
-    Залогінитись (admin / initial password з POC.md).
+Залогінитись (admin / initial password з POC.md).
 
 Переконатися, що Application → asciiartify має статус Synced/Healthy.
-### 5) Переглянути застосунок у браузері
+## Переглянути застосунок у браузері
 ```bash
 make app-open
 ```
-    У вкладці Ports порту 8081 поставити Public.
+У вкладці Ports порту 8081 поставити Public.
 
-    Відкрити: https://<codespace>-8081.app.github.dev → бачимо “MVP v1”.
+Відкрити: https://<codespace>-8081.app.github.dev → бачимо “MVP v1”.
 
-### 6) Демо авто-синху (видима зміна)
+### TLS-захист
+У нашій реалізації не виконувалось налаштування доступу до ArgoCD через порт 443 з використанням самопідписаного сертифіката, оскільки робота здійснюється в середовищі GitHub Codespaces. Дане середовище автоматично прокидує увесь трафік через HTTPS із валідним SSL-сертифікатом, виданим для доменів формату *.github.dev.
+Таким чином, навіть за умови, що ArgoCD у межах кластера працює по HTTP, підключення до веб-інтерфейсу ззовні вже захищене шифруванням TLS/SSL на рівні інфраструктури Codespaces.
 
-    Змінити doc: у k8s/app/configmap.yaml замінити MVP v1 → MVP v2.
+## Демо авто-синху (видима зміна)
 
-    Закомітити і запушити в main.
+Змінити doc: у k8s/app/configmap.yaml замінити MVP v1 → MVP v2.
 
-    У UI ArgoCD побачити: OutOfSync → Auto-Sync → Synced.
+Закомітити і запушити в main.
 
-    Оновити сторінку застосунку (8081/Public) → бачимо “MVP v2”.
+У UI ArgoCD побачити: OutOfSync → Auto-Sync → Synced.
+
+Оновити сторінку застосунку (8081/Public) → бачимо “MVP v2”.
 
 Демо (відео)
 
-    Демо роботи застосунку: посилання та Демо авто-синхронізації: 
+Демо роботи застосунку: посилання та Демо авто-синхронізації: 
 [![Дивитися відео](https://www.loom.com/share/e1ff9d94580842e8b900ce42f6ab35d5?sid=cbfedf14-0a19-4625-afd1-e941449998e2/0.jpg)](https://www.loom.com/share/e1ff9d94580842e8b900ce42f6ab35d5?sid=cbfedf14-0a19-4625-afd1-e941449998e2)
+
