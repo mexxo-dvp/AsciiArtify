@@ -97,7 +97,7 @@ https://<your-codespace>-8080.app.github.dev
 
  Початковий пароль admin
  ```bash
-kubectl -n argocd get secret argocd-initial-admin-secret \ -o jsonpath="{.data.password}" | base64 -d; echo
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
 ```
 User: admin
 Pass: (значення з команди вище)
