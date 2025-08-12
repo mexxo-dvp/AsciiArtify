@@ -35,7 +35,7 @@ cluster-up
 ```bash
 cluster-down
 ```
-Розгортає тестовий додаток hello та очікує його готовності.
+Деплой додатку hello та очікування його готовності.
 ```bash
 deploy
 ```
@@ -51,7 +51,7 @@ demo
 ```bash
 verify
 ```
-Встановлює ArgoCD (разом із CRD) у namespace argocd та чекає на готовність.
+Процес налаштування доступу до веб-інтерфейсу ArgoCD (разом із CRD)
 ```bash
 argocd-install
 ```
@@ -75,23 +75,8 @@ app-open
 ```bash
 clean
 ```
-
-## Логіка роботи
-
-Підготовка інструментів
-Перевірка наявності Kind та встановлення за потреби.
-
-Ініціалізація середовища
-Створення локального Kubernetes-кластеру для тестового розгортання.
-
-Базове розгортання
-Деплой тестового сервісу hello для перевірки мережевої доступності.
-
 ## ArgoCD
-
-Встановлення ArgoCD в окремий namespace.
-
-Створення Application для керування нашим додатком через GitOps.
+![Скріншот інтерфейсу](https://raw.githubusercontent.com/mexxo-dvp/AsciiArtify/main/doc/argocd.jpg)
 
 ## Доступ до сервісів
 
@@ -99,7 +84,7 @@ Port-forward для доступу до UI ArgoCD (порт 8080).
 
 Port-forward для доступу до MVP-додатку (порт 8081).
 
-## Відкрити UI ArgoCD (Codespaces)
+## Деплой UI ArgoCD (Codespaces)
 ```bash
 make argocd-open
 ```

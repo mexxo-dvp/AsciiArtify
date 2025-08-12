@@ -41,7 +41,7 @@ verify:
 	@echo "Checking NodePort 30090..."
 	@curl -I http://localhost:30090/ || true
 
-# Встановлює ArgoCD (разом із CRD) та чекає на готовність
+# Процес налаштування доступу до веб-інтерфейсу ArgoCD (разом із CRD)
 argocd-install:
 	@echo "Installing ArgoCD..."
 	kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
@@ -49,7 +49,7 @@ argocd-install:
 	kubectl wait --for=condition=Established crd/applications.argoproj.io --timeout=120s
 	kubectl -n argocd rollout status deploy/argocd-server --timeout=180s
 
-# Створює або оновлює ArgoCD Application (включає підготовку namespace та встановлення ArgoCD)
+# Деплой  Application у ArgoCD (включає підготовку namespace та встановлення ArgoCD)
 app-apply: argocd-install ns-demo
 	@echo "Applying ArgoCD Application 'asciiartify'..."
 	kubectl apply -f k8s/argocd/asciiartify-app.yaml
