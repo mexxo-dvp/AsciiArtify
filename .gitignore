@@ -1,0 +1,25 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE / редактори
+.vscode/
+.idea/
+*.swp
+
+# Kubernetes / kind cache
+.kube/
+.kind/
+
+# Docker
+**/.dockerignore
+docker-compose.override.yml
+
+# Логи
+*.log
+
+doc/demo/*.cast
+
+# Інші тимчасові файли
+*.tmp
+*.bak
