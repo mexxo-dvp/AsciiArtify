@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "kubectl kubeplugin [-n|--namespace <ns>] [-r|--resource pods|nodes]"
+  echo
+  echo "Вивід CSV: Resource,Namespace,Name,CPU,Memory"
+  echo "За замовчуванням: -n kube-system, -r pods"
+}
+
+NAMESPACE="kube-system"
+RESOURCE="pods"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n|--namespace)
+      NAMESPACE="$2"; shift 2;;
+    -r|--resource)
+      RESOURCE="$2"; shift 2;;
+    -h|--help)
+      usage; exit 0;;
+    *)
+      echo "error: unknown arg: $1"; usage; exit 1;;
+  esac
+done
+
+case "$RESOURCE" in
+  pods)
+    TOP_CMD=(kubectl top pods -n "$NAMESPACE" --no-headers)
+    HEADER_NS="$NAMESPACE"; RESOURCE_LABEL="pod";;
+  nodes)
+    TOP_CMD=(kubectl top nodes --no-headers)
+    HEADER_NS="-"; RESOURCE_LABEL="node";;
+  *)
+    echo "error: unsupported resource"; exit 1;;
+esac
+
+if ! OUTPUT="$("${TOP_CMD[@]}" 2>/dev/null)"; then
+  echo "error: 'kubectl top' failed. Переконайтесь, що metrics-server встановлено та є доступ до кластера." >&2
+  exit 1
+fi
+
+echo "Resource,Namespace,Name,CPU,Memory"
+while IFS= read -r line; do
+  [[ -n "$line" ]] || continue
+  read -r NAME CPU MEM _ <<<"$line"
+  echo "${RESOURCE_LABEL},${HEADER_NS},${NAME},${CPU},${MEM}"
+done <<< "$OUTPUT"
