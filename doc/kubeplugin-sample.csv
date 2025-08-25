@@ -1,0 +1,5 @@
+Resource,Namespace,Name,CPU,Memory
+pod,kube-system,coredns-65f99c9c5d-zs5nz,2m,43Mi
+pod,kube-system,metrics-server-867d48dc9c-g7kps,5m,17Mi
+pod,kube-system,metrics-server-v1.32.2-6599b55446-wszbl,4m,23Mi
+...
