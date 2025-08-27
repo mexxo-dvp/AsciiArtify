@@ -8,7 +8,7 @@ pipeline {
   }
   parameters {
     string(name: 'GIT_REF', defaultValue: 'main', description: 'Branch, tag або commit SHA')
-    choice(name: 'PLATFORMS', choices: ['linux/amd64,linux/arm64','linux/amd64','linux/arm64','linux/arm/v7'], description: 'Цільові платформи')
+    choice(name: 'PLATFORMS', choices: ['linux/amd64,linux/arm64','linux/amd64','linux/arm64','linux/arm/v7'],
     string(name: 'REPOSITORY', defaultValue: 'ghcr.io/mexxo-dvp/kbot', description: 'registry/repo')
     string(name: 'IMAGE_TAG', defaultValue: 'auto', description: 'auto => <tag|dev>-<shortSHA>')
     booleanParam(name: 'PUSH', defaultValue: true, description: 'Пушити у реєстр')
